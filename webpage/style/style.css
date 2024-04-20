@@ -35,9 +35,11 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
 }
 
 #title-screen {
+    opacity: 0%;
     display: flex;
     justify-content: center;
     align-items: center;
+    animation: 5s blink-anim 0.5s ease forwards;
     & svg {
         padding-bottom: 50px;
     }
@@ -745,6 +747,15 @@ dialog[open] {
     }
 }
 
-#title-screen, #task-table, #question-block, #results-screen  {
+@keyframes team-screen-anim {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
+
+#team-screen, #task-table, #question-block, #results-screen  {
     display: none;
 }

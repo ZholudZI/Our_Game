@@ -1,4 +1,9 @@
-﻿var result = [];
+﻿setTimeout(function () {
+	document.getElementById('team-screen').style.display = 'flex'
+	document.getElementById('team-screen').style.animation = '2s team-screen-anim ease forwards'
+}, 6000)
+
+var result = [];
 var blockNow = {};
 var balance = 0;
 var gameData = {};
@@ -32,7 +37,6 @@ function ask(block) {
 	answerArea.style.display = 'block'
 	document.getElementById('question-div').style.display = 'flex'
 }
-
 function ask2(block) {
 	blockPos = { x: blockNow.pos.x, y: blockNow.pos.y };
 	blockNow = block
