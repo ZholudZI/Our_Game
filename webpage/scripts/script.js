@@ -1,6 +1,17 @@
-﻿setTimeout(function () {
-	document.getElementById('team-screen').style.display = 'flex'
-	document.getElementById('team-screen').style.animation = '2s team-screen-anim ease forwards'
+﻿let delayer = true
+
+document.getElementById("title-screen").onclick = function Skip() {
+	document.getElementById("title-screen").style.animation = "none"
+	document.getElementById("title-screen").style.display = "none"
+	document.getElementById("team-screen").style.display = "flex"
+	delayer = false
+}
+
+setTimeout(function () {
+	if (delayer) {
+		document.getElementById('team-screen').style.display = 'flex'
+		document.getElementById('team-screen').style.animation = '2s team-screen-anim ease forwards'
+	}
 }, 6000)
 
 var result = [];
@@ -14,7 +25,7 @@ var playersNum = 0;
 var lobby = true;
 var firstNameFormChage = false;
 var teams = [];
-var turn =0;
+var turn = 0;
 var roomsData = [];
 var username = `player${Math.floor(Math.random() * 1000)}`;
 var delay = ms => new Promise(res => setTimeout(res, ms));
@@ -222,10 +233,6 @@ function tableCreateSolo(costs, topics) {
 	return
 }
 
-function questionSelected(){
-
-}
-
 async function fetchTable(type) {
 	fetch(`${serverIp}/fetch?${type == 'answer' ? `btnPos=${JSON.stringify(blockNow.pos)}&answer=${userAnswer}&` : ``}id=${roomId}&user=${username}&type=${type}${type == 'question-select' ? `&btnPos=${JSON.stringify(blockNow.pos)}` : ``}`)
 		.then(data => data.json())
@@ -253,7 +260,7 @@ async function processServerRessolo(data) {
 		let answers
 		for (let i = 0; i < teams.length; i++){
 			balanceContent += `<section>
-                <h2>${teams[i].name}</h2>
+                <h2 style="color:${teams[i].color}">${teams[i].name}</h2>
                 <h3 style="background-color:${teams[i].color}">${teams[i].score}</h3>
             </section>`
 			if (teams[i].turnOrder == turn)
@@ -418,7 +425,7 @@ function create_team() {
 		return
 	var defaultName = 'Команда'
 	var defaultColor = "#00994B"
-	let teamsNames = []
+	let teamsNames = ["Команда"]
 	var teamName = {
 		name:defaultName,
 		color:defaultColor,
@@ -429,7 +436,7 @@ function create_team() {
 		if (teams[i])
 			teamsNames += teams[i].name
 	}
-	for(let i = 2; teamsNames.includes(teamName.name); i++) {
+	for(let i = 1; teamsNames.includes(teamName.name); i++) {
 		teamName.name = `${defaultName} ${i}`
 	}
 	teams.push(teamName)
@@ -491,7 +498,7 @@ function editTeam(elementID, defName, defColor) {
 	elem.innerHTML = `
 		
 		<div class="team-editor">
-			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="19" onChange="editTeam('div-team:${newname}', this.value, null)"></input>
+			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="19" onChange="editTeam('div-team:${newname}', this.value, null)" style="color:${defColor}"></input>
 			<section class="team-edit-buttons">
 				<div class="color-changer">
 					<input type="color" value = '${defColor}' onChange="editTeam('div-team:${newname}', null, this.value)">

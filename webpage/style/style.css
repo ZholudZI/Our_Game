@@ -267,6 +267,7 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
                                         height: 2px;
                                         color: rgba(0, 0, 0, 0.50);
                                         background: rgba(0, 0, 0, 0.50);
+                                        border: none;
                                     }
                                 }
                             }
@@ -474,6 +475,8 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
             width: 964px;
             height: 436px;
             justify-content: space-between;
+            & question-image-div {
+            }
             & h2 {
                 width: 517px;
                 color: #00A651;
