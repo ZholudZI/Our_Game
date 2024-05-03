@@ -1,9 +1,10 @@
 @echo off
 setlocal
 
-set "folder=node_modules"
+set folder="node_modules"
+cd app_files
 
-if not exist "%folder%" (
+if not exist %folder% (
 	npm i
 )
 
