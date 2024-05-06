@@ -25,7 +25,8 @@ var result = [],
 	pack = {},
 	sessions = [],
 	logs = [], //logs - брёвна
-	allRooms = {}
+	allRooms = {},
+	themeOfQuiz = "Нет темы"
 	
 
 
@@ -243,6 +244,10 @@ async function readExelFile() {
 					exelFile[sheetName] = roa;
 				}
 			});
+			exelFile.main.forEach(item => {
+				if ((item.theme != undefined) && (themeOfQuiz == "Нет темы"))
+					themeOfQuiz = item.theme;
+			});
 			exelFile.main.shift()
 			exelFile.main.sort((a, b) => a.cost - b.cost) // сразу сортирем по ценам вопроса	
 			processFile(exelFile);
@@ -268,7 +273,6 @@ async function processFile(exelFile) {
 	costs = {};
 	topicsList.forEach((item, i) => topics[item] = i);
 	costsList.forEach((item, i) => costs[item] = i);
-
 	exelFile.main.forEach(item => {
 		if (!result[topics[item.topic]])
 			result.push([])
@@ -287,7 +291,7 @@ async function processFile(exelFile) {
 	pack.blockNow = {}
 	pack.maxPlayers = 3
 	pack.roomID = 0
-
+	pack.theme = themeOfQuiz
 	app.listen(8000, () => {
 		/*folder.listen(process.env.PORT || PORT, () => {
 			console.log(`server started!`)

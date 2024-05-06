@@ -33,7 +33,7 @@ var flag = false;
 var serverIp = 'http://' + window.location.toString().split('/')[2].split(':')[0] + ':8000'
 startAutoScrollteams(1)
 startAutoScrollresults(1)
-function ask(block) {
+/*function ask(block) { //функция онлайн-мультиплеера
 	blockNow = block
 	questionArea = document.getElementById('question')
 	submitButton = document.getElementById('submit')
@@ -47,7 +47,7 @@ function ask(block) {
 	submitButton.style.display = 'block'
 	answerArea.style.display = 'block'
 	document.getElementById('question-div').style.display = 'flex'
-}
+}*/
 function ask2(block) {
 	blockPos = { x: blockNow.pos.x, y: blockNow.pos.y };
 	blockNow = block
@@ -57,10 +57,14 @@ function ask2(block) {
 	answerArea = document.getElementById('answer')
 	if (result[blockPos.x][blockPos.y].image == undefined) {
 		document.getElementById("question-with-img").style.justifyContent = "center"
+		document.getElementById("question").style.width = "100%"
+		document.getElementById("question").style.textAlign = "center"
 	} else {
 		document.getElementById("question-with-img").style.justifyContent = "space-between"
 		document.getElementById('question-image2').src = './images/' + result[blockPos.x][blockPos.y].image
 		questionImage = document.getElementById('question-image2')
+		document.getElementById("question").style.width = "567px"
+		document.getElementById("question").style.textAlign = "start"
 	}
 
 	document.getElementById('task-table').style.display = 'none';
@@ -70,7 +74,10 @@ function ask2(block) {
 		if (teams[i].turnOrder == turn)
 			answers = i
 	}
-	document.getElementById('rt1').innerHTML = "Отвечает: " + teams[answers].name
+	document.getElementById('rt1').innerHTML = "Отвечает: " + teams[answers].name;
+	document.getElementById('rt1co').innerHTML = "Цена вопроса: " + result[blockPos.x][blockPos.y].cost;
+	document.getElementById('rt1th').innerHTML = "Тема вопроса: " + result[blockPos.x][blockPos.y].topic;
+	document.getElementById('rt1').style.color = teams[answers].color;
 	if (result[blockPos.x][blockPos.y].image)
 		questionImage.style.display = 'block'
 	document.getElementById('question-block').style.display = 'flex'
@@ -81,7 +88,7 @@ function look_answer(){
 	document.getElementById('answer-text').innerHTML = blockNow.answer
 }
 
-function submit_answer() {
+/*function submit_answer() { //функция онлайн-мультиплеера
 	answerElem = document.getElementById('answer')
 	buttonElem = document.getElementById('submit')
 
@@ -95,7 +102,7 @@ function submit_answer() {
 	fetchTable('answer')
 	document.getElementById('question-div').style.display = 'none'
 
-}
+}*/
 
 function submit_answersolo() {
 
@@ -141,9 +148,9 @@ function submit_answersolo2() {
 	processServerRessolo(gameData)
 }
 
-async function reply() {
+/*async function reply() { //функция онлайн-мультиплеера
 	fetchTable('reply')
-}
+}*/
 
 function getUnicalElements(arr) {
 	var output = ""
@@ -158,7 +165,7 @@ function getUnicalElements(arr) {
 
 
 
-function tableCreate(costs, topics) {
+/*function tableCreate(costs, topics) { //функция онлайн-мультиплеера
 	tbl = document.getElementById("table");
 	tbl.innerHTML = ''
 	for (let row = 0; row < topics.length + 1; row++) {
@@ -196,7 +203,7 @@ function tableCreate(costs, topics) {
 		}
 	}
 	return
-}
+}*/
 
 function tableCreateSolo(costs, topics) {
 	tbl = document.getElementById("task-table-block");
@@ -239,14 +246,14 @@ function tableCreateSolo(costs, topics) {
 	return
 }
 
-async function fetchTable(type) {
+/*async function fetchTable(type) { //функция онлайн-мультиплеера
 	fetch(`${serverIp}/fetch?${type == 'answer' ? `btnPos=${JSON.stringify(blockNow.pos)}&answer=${userAnswer}&` : ``}id=${roomId}&user=${username}&type=${type}${type == 'question-select' ? `&btnPos=${JSON.stringify(blockNow.pos)}` : ``}`)
 		.then(data => data.json())
 		.then(async function (data) {
 			processServerRes(data)
 		})
 		.catch(err => { console.log(err); alert('can\'t connect to servers'); debugger; })
-}
+}*/
 
 async function fetchTablesolo(type) {
 	fetch(`${serverIp}/fetchsolo?${type == 'answer' ? `btnPos=${JSON.stringify(blockNow.pos)}&answer=${userAnswer}&` : ``}id=${1}&user=${username}&type=${type}${type == 'question-select' ? `&btnPos=${JSON.stringify(blockNow.pos)}` : ``}`)
@@ -260,6 +267,7 @@ async function fetchTablesolo(type) {
 async function processServerRessolo(data) {
 	try {
 		gameData = data;
+		gameTheme = gameData.theme;
 		result = gameData.result
 		tableCreateSolo(gameData.costsList, gameData.topicsList);
 		balanceContent = ``
@@ -273,6 +281,8 @@ async function processServerRessolo(data) {
 				answers = i
 		}
 		document.getElementById('rt2').innerHTML = `Выбирает: ${teams[answers].name}`
+		document.getElementById('rt2').style.color = teams[answers].color;
+		document.getElementById('rt3').innerHTML = `Тема викторины:  ${gameTheme}`
 		document.getElementById('team-points-block').innerHTML = balanceContent //вывод баланса
 		if (blockNow.pos)
 			ask2(result[blockNow.pos.x][blockNow.pos.y])
@@ -290,7 +300,7 @@ async function processServerRessolo(data) {
 	}
 }
 
-async function processServerRes(data) {
+/*async function processServerRes(data) { //функция онлайн-мультиплеера
 	try {
 		playersNum = data.playersNum;
 		document.getElementById('marker').textContent = `Ожидание игроков(${playersNum}/${data.maxPlayers})... `
@@ -333,7 +343,7 @@ async function processServerRes(data) {
 	} catch(err) {
 		console.log(err)
 	}
-}
+}*/
 
 function getQueryVariable(variable) {
 	var query = window.location.search.substring(1);
@@ -346,7 +356,7 @@ function getQueryVariable(variable) {
 	return undefined;
 }
 
-function waitForOthers() {
+/*function waitForOthers() { //функция онлайн-мультиплеера
 	state = 'waitForOthers'
 
 	document.getElementById('submit_username').style.display = 'none'
@@ -356,8 +366,8 @@ function waitForOthers() {
 
 	marker = document.getElementById('marker')
 	marker.style.display = 'block'
-}
-function setup() {
+}*/
+/*function setup() { //функция онлайн-мультиплеера
 	document.getElementById('marker').style.display = 'none'
 
 	fetchTable('get')
@@ -365,9 +375,9 @@ function setup() {
 	document.getElementById('table').style.display = 'inline-table'
 
 	lobby = false
-}
+}*/
 
-async function apply_username() {
+/*async function apply_username() { //функция онлайн-мультиплеера
 	var un = document.getElementById('username').value;
 	var ri = parseInt(document.getElementById('game-id').value, 16);
 	
@@ -380,9 +390,9 @@ async function apply_username() {
 	roomId = ri
 	username = un
 	waitForOthers()
-}
+}*/
 
-function create_room() {
+/*function create_room() { //функция онлайн-мультиплеера
 	hideWeloceElements()
 	document.getElementById('team').innerHTML = ''
 	document.getElementById('team-creating-ui').style.display = 'flex'
@@ -391,7 +401,7 @@ function create_room() {
 	while(teams.length < 2)
 		create_team()
 	
-}
+}*/
 
 function create_solo_room() {
 	hideWeloceElements()
@@ -404,7 +414,7 @@ function create_solo_room() {
 	
 }
 
-function join_room() {
+/*function join_room() { //функция онлайн-мультиплеера
 
 	hideWeloceElements()
 	document.getElementById('login').style.display = 'flex'
@@ -417,7 +427,7 @@ function join_room() {
 		})
 		.catch(err => { console.log(err); alert('can\'t connect to ' + serverIp); debugger; })
 	
-}
+}*/
 
 function hideWeloceElements() {
 	document.getElementById('start').style.display = 'none'
@@ -427,8 +437,11 @@ function hideWeloceElements() {
 }
 
 function create_team() {
-	if (teams.length > 5)
+	if (teams.length > 5){
+		document.getElementById('Cant-create-team-message').style.animation = '2s blink-anim ease forwards'
+		setTimeout(() => document.getElementById('Cant-create-team-message').style.animation = 'none', 2000) //спросить про флаг
 		return
+	}
 	var defaultName = 'Команда'
 	var defaultColor = "#00994B"
 	let teamsNames = ["Команда"]
@@ -438,21 +451,15 @@ function create_team() {
 		score:0,
 		turnOrder:0
 	}
-	for (let i = 0; i <= teams.length; i++){
-		if (teams[i])
-			teamsNames += teams[i].name
-	}
-	for(let i = 1; teamsNames.includes(teamName.name); i++) {
-		teamName.name = `${defaultName} ${i}`
-	}
+	teamName.name = `${defaultName} ${teams.length + 1}`
 	teams.push(teamName)
 	document.getElementById('team-list').innerHTML += `
 		<div class="team-element" id='div-team:${teamName.name}' sty>
             <div class="team-editor">
-                <input placeholder="Имя команды" type="text" value='${teamName.name}' maxlength="19" onChange="editTeam('div-team:${teamName.name}', this.value, null)"></input>
+                <input placeholder="Имя команды" type="text" value='${teamName.name}' maxlength="19" onChange="editTeam('div-team:${teamName.name}', this.value)"></input>
             	<section class="team-edit-buttons">
 					<div class="color-changer">
-						<input type="color" onChange="editTeam('div-team:${teamName.name}', null, this.value)">
+						<input type="color" onInput="realTimeRecolor('div-team:${teamName.name}', this.value)">
 					</div>
                 	<button onClick="removeTeam('div-team:${teamName.name}')"><img src="images/trash_bin.png" alt="Удалить команду"></button>
             	</section>
@@ -460,10 +467,6 @@ function create_team() {
             <hr>
         </div>
 	`
-	if (teams.length >= 6){
-		document.getElementById('Cant-create-team-message').style.animation = '2s blink-anim ease forwards'
-		setTimeout(() => document.getElementById('Cant-create-team-message').style.animation = 'none', 2000) //спросить про флаг
-	}
 }
 
 function removeTeam(elementID) {
@@ -478,25 +481,22 @@ function removeTeam(elementID) {
 	elem.remove()
 }
 
-function editTeam(elementID, defName, defColor) {
+function editTeam(elementID, defName) {
 	var newname
 	let teamsNames = []
 	var elem = document.getElementById(elementID);
-	console.log(elem.children[0])
 	if (defName == null){
 			console.log(elem.children[0].children[0].value)
 			newname = elem.children[0].children[0].value
 	}
 	else
 		newname = defName
-	if (!defColor)
-		defColor = elem.children[1].value
+	defColor = elem.children[0].children[1].children[0].children[0].value
 	for (let i = 0; i <= teams.length; i++)
 	{
 		if (teams[i]){
 			if (teams[i].name == elementID.split(':')[1]){
 				teams[i].name = newname;
-				teams[i].color = defColor;
 			}
 		}
 	}
@@ -504,10 +504,10 @@ function editTeam(elementID, defName, defColor) {
 	elem.innerHTML = `
 		
 		<div class="team-editor">
-			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="19" onChange="editTeam('div-team:${newname}', this.value, null)" style="color:${defColor}"></input>
+			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="19" onChange="editTeam('div-team:${newname}', this.value)" style="color:${defColor}"></input>
 			<section class="team-edit-buttons">
 				<div class="color-changer">
-					<input type="color" value = '${defColor}' onChange="editTeam('div-team:${newname}', null, this.value)">
+					<input type="color" value = '${defColor}' onInput="realTimeRecolor('div-team:${newname}', this.value)">
 				</div>
 				<button onClick="removeTeam('div-team:${newname}')"><img src="images/trash_bin.png" alt="Удалить команду"></button>
 			</section>
@@ -516,8 +516,23 @@ function editTeam(elementID, defName, defColor) {
 	`
 }
 
+function realTimeRecolor(elementID, defColor){
+	var elem = document.getElementById(elementID);
+	elem.children[0].children[0].style.color = defColor;
+	elem.children[1].style.color = defColor;
+	elem.children[1].style.backgroundColor = defColor;
+	for (let i = 0; i <= teams.length; i++)
+	{
+		if (teams[i]){
+			if (teams[i].name == elementID.split(':')[1]){
+				teams[i].color = defColor;
+			}
+		}
+	}
+}
 
-function submit_teams() {
+
+/*function submit_teams() { //функция онлайн-мультиплеера
 	let teamsNames = []
 	for (let i = 0; i < teams.length; i++){
 		if (teams[i])
@@ -535,7 +550,7 @@ function submit_teams() {
 		.catch(err => { console.log(err); alert('can\'t connect to servers'); debugger; })
 	document.getElementById('team-creating-ui').style.display = 'none'
 
-}
+}*/
 
 function startupsolo() {
 	let turnorders = []
