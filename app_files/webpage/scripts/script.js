@@ -31,8 +31,6 @@ var username = `player${Math.floor(Math.random() * 1000)}`;
 var delay = ms => new Promise(res => setTimeout(res, ms));
 var flag = false;
 var serverIp = 'http://' + window.location.toString().split('/')[2].split(':')[0] + ':8000'
-startAutoScrollteams(1)
-startAutoScrollresults(1)
 /*function ask(block) { //функция онлайн-мультиплеера
 	blockNow = block
 	questionArea = document.getElementById('question')
@@ -456,10 +454,10 @@ function create_team() {
 	document.getElementById('team-list').innerHTML += `
 		<div class="team-element" id='div-team:${teamName.name}' sty>
             <div class="team-editor">
-                <input placeholder="Имя команды" type="text" value='${teamName.name}' maxlength="19" onChange="editTeam('div-team:${teamName.name}', this.value)"></input>
+                <input placeholder="Имя команды" type="text" value='${teamName.name}' maxlength="12" onChange="editTeam('div-team:${teamName.name}', this.value)"></input>
             	<section class="team-edit-buttons">
 					<div class="color-changer">
-						<input type="color" onInput="realTimeRecolor('div-team:${teamName.name}', this.value)">
+						<input type="color" value="#6c6c6c" onInput="realTimeRecolor('div-team:${teamName.name}', this.value)">
 					</div>
                 	<button onClick="removeTeam('div-team:${teamName.name}')"><img src="images/trash_bin.png" alt="Удалить команду"></button>
             	</section>
@@ -504,7 +502,7 @@ function editTeam(elementID, defName) {
 	elem.innerHTML = `
 		
 		<div class="team-editor">
-			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="19" onChange="editTeam('div-team:${newname}', this.value)" style="color:${defColor}"></input>
+			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="12" onChange="editTeam('div-team:${newname}', this.value)" style="color:${defColor}"></input>
 			<section class="team-edit-buttons">
 				<div class="color-changer">
 					<input type="color" value = '${defColor}' onInput="realTimeRecolor('div-team:${newname}', this.value)">
@@ -625,77 +623,6 @@ function select_mode() {
 	hideWeloceElements()
 	document.getElementById('select-mode-ui').style.display = 'flex'
 	
-}
-
-function startAutoScrollresults(scrollDistance) {
-    var container = document.getElementById('results-table');
-    // Высчитываем высоту контейнера
-    // Задаем интервал между кадрами (меньше — плавнее, но требуется больше ресурсов)
-    var scrollInterval = 16 / Math.abs(scrollDistance);
-	var actualdist
-	if (scrollDistance > 0){
-		actualdist = 1
-	}
-	else{
-		actualdist = -1
-	}
-    // Вычисляем расстояние, которое нужно проскроллить за одну итерацию
-    // Запускаем интервал
-    var scrollIntervalId = setInterval(function() {
-		var container = document.getElementById('results-table');
-		if ((document.getElementById('results-screen').style.display == "none") || (document.getElementById('results-screen').style.display == "")){
-			return
-		}
-        container.scrollTop += actualdist;
-        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
-            clearInterval(scrollIntervalId);
-			var scrollTimeoutId = setTimeout(function() {
-				startAutoScrollresults(-1 * scrollDistance);
-			}, 1000);
-        }
-		if (container.scrollTop <= 0) {
-            clearInterval(scrollIntervalId);
-			var scrollTimeoutId = setTimeout(function() {
-				startAutoScrollresults(-1 * scrollDistance);
-			}, 1000);
-        }
-    }, scrollInterval);
-}
-
-function startAutoScrollteams(scrollDistance) {
-    var container = document.getElementById('team-points-block');
-    // Высчитываем высоту контейнера
-
-    // Задаем интервал между кадрами (меньше — плавнее, но требуется больше ресурсов)
-    var scrollInterval = 16 / Math.abs(scrollDistance);
-	var actualdist
-	if (scrollDistance > 0){
-		actualdist = 1
-	}
-	else{
-		actualdist = -1
-	}
-    // Вычисляем расстояние, которое нужно проскроллить за одну итерацию
-    // Запускаем интервал
-    var scrollIntervalIdteams = setInterval(function() {
-		var container = document.getElementById('team-points-block');
-		if ((document.getElementById('task-table').style.display == "none") || (document.getElementById('task-table').style.display == "")){
-			return
-		}
-        container.scrollLeft += actualdist;
-        if (container.scrollLeft + container.clientWidth >= container.scrollWidth) {
-            clearInterval(scrollIntervalIdteams);
-			var scrollTimeoutId = setTimeout(function() {
-				startAutoScrollteams(-1 * scrollDistance);
-			}, 1000);
-        }
-		if (container.scrollLeft <= 0) {
-            clearInterval(scrollIntervalIdteams);
-			var scrollTimeoutId = setTimeout(function() {
-				startAutoScrollteams(-1 * scrollDistance);
-			}, 1000);
-        }
-    }, scrollInterval);
 }
 
 function clearIntervals(){
