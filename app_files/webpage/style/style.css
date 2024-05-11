@@ -400,6 +400,22 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
     display: none;
     align-items: center;
     justify-content: center;
+    & .finish-button {
+        position: fixed;
+        margin-top: 910px;
+        margin-left: -85%;
+        background: #00A651;
+        color: #FFF;
+        font-family: Inter;
+        font-size: 24px;
+        font-weight: 700;
+        filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+    & .finish-button:hover {
+        background-color: #FFF;
+        color: #00994B;
+        border: 1.5px solid #00A651;
+    }
     & #task-table-content {
         display: flex;
         width: 1063px;
@@ -433,47 +449,52 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
                 text-align: center; 
             }
             & h2 {
-                /*margin: 0px 0px 0px 18px;*/
                 color: #505050;
                 font-family: Inter;
                 font-size: 40px;
                 height: 50px;
+                text-wrap: nowrap;
             }
         }
         & #team-points-block {
-            display: flex;
-            min-width: 1039px;
-            height: 150px;
-            justify-content: space-between;
+            width: 1190px;
+            height: 170px;
             overflow-x: auto;
-            align-items: center;
-            overflow-y: hidden;
-            & section {
+            & #scroll-points {
                 display: flex;
-                flex-direction: column;
-                align-items: center;
+                min-width: 1070px;
+                height: 150px;
                 justify-content: space-between;
-                width: 246px;
-                height: 99px;
-                & h2 {
-                    width: 246px;
-                    height: 40px;
-                    color: #00994B;
-                    text-align: center;
-                    font-family: Inter;
-                    font-size: 40px;
-                    line-height: 16px;
-                }
-                & h3 {
-                    color: #FFF;
-                    font-family: Inter;
-                    font-size: 32px;
-                    line-height: 58px; 
-                    border-radius: 15px;
-                    background: #00994B;
-                    width: 134px;
-                    height: 58px;
-                    text-align: center;
+                align-items: center;
+                & section {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: auto;
+                    height: 99px;
+                    margin: 0px 10px 0px 10px;
+                    & h2 {
+                        width: auto;
+                        height: 40px;
+                        color: #00994B;
+                        text-align: center;
+                        text-wrap: nowrap;
+                        font-family: Inter;
+                        font-size: 40px;
+                        line-height: 16px;
+                    }
+                    & h3 {
+                        color: #FFF;
+                        font-family: Inter;
+                        font-size: 32px;
+                        line-height: 58px; 
+                        border-radius: 15px;
+                        background: #00994B;
+                        width: 134px;
+                        height: 58px;
+                        text-align: center;
+                    }
                 }
             }
         }
@@ -564,7 +585,7 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
         line-height: 96px; /* 100% */
         margin-top: 42px;
     }
-    & #one-pc-mode {
+    & #back-to-menu {
         margin-top: 4%;
         width: 246px;
         height: 60px;
@@ -575,6 +596,11 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
         font-size: 24px;
         font-weight: 700;
         filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    }
+    & #back-to-menu:hover {
+        background-color: #FFF;
+        color: #00A651;
+        border: 1.5px solid #00A651;
     }
     & #results-table {
         overflow-y: auto;
@@ -747,8 +773,18 @@ img, h1, h2, h3, p, button, #team-screen, #task-table, #question-block {
                 & #wrong-answer {
                     background-color: #e23030;
                 }
+                & #wrong-answer:hover {
+                    background-color: #FFF;
+                    color: #e23030;
+                    border: 1.5px solid #e23030;
+                }
                 & #correct-answer {
                     background-color: #00a651;
+                }
+                & #correct-answer:hover {
+                    background-color: #FFF;
+                    color: #00994B;
+                    border: 1.5px solid #00A651;
                 }
             }
         }

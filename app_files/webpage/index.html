@@ -91,6 +91,7 @@
         </div>
     </div>
     <div id="task-table">
+        <button class="finish-button" onclick="finishGame()">Закончить досрочно</button>
         <div id="task-table-content">
         <section id="header-section">
             <h1 class="regular-title" id="rt3">Тема викторины: Физика</h1>
@@ -167,18 +168,20 @@
             </tr>
         </table>
         <div id="team-points-block">
-            <section>
-                <h2>Команда 1</h2>
-                <h3>300</h3>
-            </section>
-            <section>
-                <h2>Команда 2</h2>
-                <h3>200</h3>
-            </section>
-            <section>
-                <h2>Команда 3</h2>
-                <h3>500</h3>
-            </section>
+            <div id="scroll-points">
+                <section>
+                    <h2>Команда 1</h2>
+                    <h3>300</h3>
+                </section>
+                <section>
+                    <h2>Команда 2</h2>
+                    <h3>200</h3>
+                </section>
+                <section>
+                    <h2>Команда 3</h2>
+                    <h3>500</h3>
+                </section>
+            </div>
         </div>
     </div>
     </div>
@@ -217,7 +220,7 @@
                 <p>Счет</p>
             </div>
         </div>
-        <button id="one-pc-mode" onclick="backToMain()">В меню</button>
+        <button id="back-to-menu" onclick="backToMain()">В меню</button>
     </div>
     <dialog id="check-answer-window">
         <form method="dialog">

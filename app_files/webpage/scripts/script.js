@@ -281,7 +281,7 @@ async function processServerRessolo(data) {
 		document.getElementById('rt2').innerHTML = `Выбирает: ${teams[answers].name}`
 		document.getElementById('rt2').style.color = teams[answers].color;
 		document.getElementById('rt3').innerHTML = `Тема викторины:  ${gameTheme}`
-		document.getElementById('team-points-block').innerHTML = balanceContent //вывод баланса
+		document.getElementById('scroll-points').innerHTML = balanceContent //вывод баланса
 		if (blockNow.pos)
 			ask2(result[blockNow.pos.x][blockNow.pos.y])
 		let flag = true
@@ -454,7 +454,7 @@ function create_team() {
 	document.getElementById('team-list').innerHTML += `
 		<div class="team-element" id='div-team:${teamName.name}' sty>
             <div class="team-editor">
-                <input placeholder="Имя команды" type="text" value='${teamName.name}' maxlength="12" onChange="editTeam('div-team:${teamName.name}', this.value)"></input>
+                <input placeholder="Имя команды" type="text" value='${teamName.name}' maxlength="10" onChange="editTeam('div-team:${teamName.name}', this.value)"></input>
             	<section class="team-edit-buttons">
 					<div class="color-changer">
 						<input type="color" value="#6c6c6c" onInput="realTimeRecolor('div-team:${teamName.name}', this.value)">
@@ -502,7 +502,7 @@ function editTeam(elementID, defName) {
 	elem.innerHTML = `
 		
 		<div class="team-editor">
-			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="12" onChange="editTeam('div-team:${newname}', this.value)" style="color:${defColor}"></input>
+			<input placeholder="Имя команды" type="text" value='${newname}' maxlength="10" onChange="editTeam('div-team:${newname}', this.value)" style="color:${defColor}"></input>
 			<section class="team-edit-buttons">
 				<div class="color-changer">
 					<input type="color" value = '${defColor}' onInput="realTimeRecolor('div-team:${newname}', this.value)">
